@@ -7,5 +7,5 @@
 /app/logs/*
 !app/logs/.gitkeep
 /app/phpunit.xml
-../access.log
-../error.log
+./../access.log
+./../error.log

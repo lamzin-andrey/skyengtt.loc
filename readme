@@ -1,0 +1,12 @@
+Установка на lampp OS xubuntu 14.04
+
+1. git clone https://github.com/lamzin-andrey/2gis.loc.git
+2. Откройте app/config/parameters.yml и впишите корректные параметры соединения с БД MySql
+3. Войдите в терминале в каталог приложения и запустите
+	 php app/console doctrine:database:create
+     php app/console doctrine:schema:update --force
+4. Войдите в терминале в каталог приложения и запустите
+     php app/console doctrine:migrations:status --show-versions
+     php app/console doctrine:migrations:migrate Номер_Последней_невыполненой_миграции
+     
+5.  Откройте http://your.localhost
