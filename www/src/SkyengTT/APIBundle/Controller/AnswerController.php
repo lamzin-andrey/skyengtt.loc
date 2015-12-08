@@ -14,6 +14,7 @@ class AnswerController extends Controller
 {
 	
 	/**
+	 * В целях тестирования добавил шаблон простой формы добавления ответов на вопросы
      * @Route("/answer", name="skyeng_tt_answer", requirements={ "_method" : "GET" })
      * @Template()
     */
@@ -35,7 +36,7 @@ class AnswerController extends Controller
 			if (!$anonymousAppUserId) {
 				return Tool::json404( array('info' => 'Lost session') );
 			}
-			$answerId = $request->get('answerId');
+			$answerId = $request->get('answer_id');
 			if (!$answerId) {
 				return Tool::json404( array('info' => 'Empty answer!') );
 			}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta charset="utf-8" />
+	<meta name="generator" content="Geany 1.23.1" />
+	<title>Эта форма предназначенв только для автоматических тестов</title>
+	<script src="http://qtest.loc/js/jquery-1.11.0.min.js"></script>
+	<script>
+		function _get(onSuccess, url, onFail) {
+			_restreq('get', {}, onSuccess, url, onFail)
+		}
+		function _delete(onSuccess, url, onFail) {
+			_restreq('post', {}, onSuccess, url, onFail)
+		}
+		function _post(data, onSuccess, url, onFail) {
+			_restreq('post', data, onSuccess, url, onFail)
+		}
+		function _patch(data, onSuccess, url, onFail) {
+			_restreq('patch', data, onSuccess, url, onFail)
+		}
+		function _put(data, onSuccess, url, onFail) {
+			_restreq('put', data, onSuccess, url, onFail)
+		}
+		function _restreq(method, data, onSuccess, url, onFail) {
+			if (!url) {
+				url = window.location.href;
+			}
+			if (!onFail) {
+				onFail = defaultFail;
+			}
+			data.xhr = 1;
+			$.ajax({
+				method: method,
+				data:data,
+				url:url,
+				dataType:'json',
+				success:onSuccess,
+				error:onFail
+			});
+		}
+	</script>	
+	<script>
+		window.onload=function() {
+			$('#snd').click(
+				function() {
+					var id = $('#username').val();
+					_restreq('post', {username:id}, function(data) {
+						console.log(data);
+					},
+					'/appuser/create',
+					function Fail(text, status, fn) {
+						console.log(text);
+						console.log(status);
+						console.log(fn);
+					});
+					return false;
+				}
+			);
+		}
+	</script>
+</head>
+<body>
+	<p>Эта форма предназначена только для автоматических тестов</p>
+	<form action="/answer/add/1" method="POST">
+		<p>
+			<label for="answer_id"></label>
+			<input type="text" name="username" id="username" value="Андрей">
+		</p>
+		<input type="submit" id="snd">
+	</form>
+	<a href="/answer">Answer Form</a>
+</body>
+
+</html>
+
+
