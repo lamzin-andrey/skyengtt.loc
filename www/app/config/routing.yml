@@ -1,0 +1,23 @@
+skyeng_ttapi:
+    resource: "@SkyengTTAPIBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+skyeng_tt_skyeng_tt:
+    resource: "@SkyengTTSkyengTTBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+login:
+  pattern: /login
+
+login_check:
+  pattern: /login_check
+
+logout:
+  pattern: /logout
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
