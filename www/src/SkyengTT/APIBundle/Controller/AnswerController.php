@@ -23,6 +23,7 @@ class AnswerController extends Controller
 		return array();
 	}
     /**
+     * Добавление ответа на вопрос
      * @Route("/answer/add/{questionId}", name="skyeng_tt_answer_add", requirements={ "_method" : "POST" })
      * @Template()
      * @param int $question_id идентификатор вопроса, на который отправлен ответ
@@ -32,7 +33,7 @@ class AnswerController extends Controller
 		$questionId = intval($questionId);
 		if ($questionId) {
 			$request = $this->container->get('request_stack')->getCurrentRequest();
-			$anonymousAppUserId = $request->getSession()->get('anonymousAppUserId');
+			$anonymousAppUserId = $request->getSession()->get(Tool::ANONIMOUS_USER_ID);
 			if (!$anonymousAppUserId) {
 				return Tool::json404( array('info' => 'Lost session') );
 			}
@@ -43,38 +44,35 @@ class AnswerController extends Controller
 			$doctrine = $this->getDoctrine();
 			$em = $doctrine->getEntityManager();
 			$repository = $doctrine->getRepository('SkyengTTSkyengTTBundle:Vocabulary');
-			$collection = $repository->findBy(array('id' => $questionId, 'answer_id' => $answerId));
-			
-			$questionNotFound = $answerNotFound = true;
-			$question = null;
-			foreach ($collection as $currentQuestion) {
-				if ($questionId == $currentQuestion->getId()) {
-					$questionNotFound = false;
-					$question = $currentQuestion;
-				}
-				if ($answerId == $currentQuestion->getAnswerId()) {
-					$answerNotFound = false;
-				}
-			}
-			if ($questionNotFound) {
+			$question = $repository->find($questionId);
+			if (!$question) {
 				return Tool::json404( array('info' => 'Question #' . $questionId . ' not found!') );
 			}
-			if ($answerNotFound) {
+			$answer = null;
+			if ($question->getAnswerId() == $answerId) {
+				$answer = $question;
+			} else {
+				$collection = $repository->findBy(array('answer_id' => $answerId));
+				if ($collection) {
+					$answer = current($collection);
+				}
+			}
+			if (!$answer) {
 				return Tool::json404( array('info' => 'Answer #' . $answerId . ' not found!') );
 			}
-			
 			//В базе есть вопрос и ответ с такими номерами, значит можно записать результат
 			if ($question->getAnswerId() == $answerId) {
 				$usersRepository = $doctrine->getRepository('SkyengTTSkyengTTBundle:AnonymousUsers');
 				$user = $usersRepository->find($anonymousAppUserId);
-				$user->setScore( $user->getScore() + 1 );
+				$user->setScore( $user->getScore() + 1 );//TODO получать из конфига
 				$em->persist($user);
 				$em->flush();
+				return Tool::json( array('success' => true, 'score' => $user->getScore(), 'next' => Tool::getNextQuestion($request, $doctrine))  );
 			} else {
 				$statisticRepository = $doctrine->getRepository('SkyengTTSkyengTTBundle:ErrorStat');
 				$collection = $statisticRepository->findBy( array('quest_id' => $questionId, 'answer_id' => $answerId) );
 				$statModel = null;
-				if (!$collection->count()) {
+				if (!count($collection)) {
 					$statModel = new ErrorStat();
 					$statModel->setQuestId($questionId);
 					$statModel->setAnswerId($answerId);
@@ -85,6 +83,7 @@ class AnswerController extends Controller
 				$statModel->setQuantity( $statModel->getQuantity() + 1);
 				$em->persist($statModel);
 				$em->flush();
+				return Tool::json( array('success' => false) );
 			}
 		}
         return Tool::json404( array('info' => 'Question #' . $questionId . ' not found!') );

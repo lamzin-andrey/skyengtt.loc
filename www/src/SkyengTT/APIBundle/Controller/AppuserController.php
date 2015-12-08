@@ -39,7 +39,9 @@ class AppuserController extends Controller
 			$user->setScore(0);
 			$em->persist($user);
 			$em->flush();
-			$request->getSession()->set('anonymousAppUserId', $user->getId());
+			$request->getSession()->set(Tool::ANONIMOUS_USER_ID, $user->getId());
+			$request->getSession()->set(Tool::CURRENT_QUESTION, 0);
+			$request->getSession()->set(Tool::LAST_QUESTIONS, array());
 			return Tool::json( array('id' => $user->getId()) );
 		}
         return Tool::json404( array('info' => 'empty username') );
