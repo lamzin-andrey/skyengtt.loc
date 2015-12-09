@@ -1,4 +1,6 @@
 Запуск на встроеном в symfony 2 php сервере.
+0. Убедитесь, что у вас установлено расширение для работы php  с sqlite3
+   sudo apt-get install php5 php5-sqlite
 1. git clone https://github.com/lamzin-andrey/2gis.loc.git
 2. cd app root dir
 3. php app/console server:start
