@@ -1,0 +1,23 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_sqlite
+    database_host: localhost
+    database_port: null
+    database_name: data/skyeng.db
+    database_user: root
+    database_password: null
+    mailer_transport: smtp
+    mailer_host: localhost
+    mailer_user: null
+    mailer_password: null
+    locale: en
+    #database_path: data/skyeng.db
+    database_path: "%kernel.root_dir%/data/skyeng.db"
+    secret: c08527dc7d512901f9816f3d8ffdb9fc6678c019
+
+
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/DoctrineMigrations"
+    namespace: Application\Migrations
+    table_name: migration_versions
+    name: Application Migrations

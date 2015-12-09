@@ -156,10 +156,7 @@ var LangMiniTestApp = angular.module('LangMiniTestApp', ['ngRoute', 'LangMiniTes
 			*/
 			function _onFailGetQuestion(responseText, status, fn) {
 				$rootScope.pagePreloader = false;
-				$rootScope.appErrorText = 'Возникла ошибка, попробуйте еще раз.';//TODO value(); TODO errorTooltip
-				$rootScope.showErrorMessage = true;
-				$rootScope.pagePreloader = true;
-				$rootScope.onlyFon = true;
+				$location.path('/');
 			}
 			
 			//Construct
