@@ -137,7 +137,7 @@ var LangMiniTestApp = angular.module('LangMiniTestApp', ['ngRoute', 'LangMiniTes
 						$scope['answer' + i] = data.next.answers[i].word;
 					}
 					$rootScope.pagePreloader = false;
-				} else if (data.success !== false) {
+				} else if (!data.success) {
 					if (data.gameover) {
 						$location.path('/gameover');
 					} else {
