@@ -41,6 +41,7 @@ class AppuserController extends Controller
 			$em->flush();
 			$request->getSession()->set(Tool::ANONIMOUS_USER_ID, $user->getId());
 			$request->getSession()->set(Tool::CURRENT_QUESTION, 0);
+			$request->getSession()->set(Tool::WRONG_ANSWER_COUNT, 0);
 			$request->getSession()->set(Tool::LAST_QUESTIONS, array());
 			return Tool::json( array('id' => $user->getId()) );
 		}
