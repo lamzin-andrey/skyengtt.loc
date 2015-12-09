@@ -1,7 +1,21 @@
+Запуск на встроеном в symfony 2 php сервере.
+1. git clone https://github.com/lamzin-andrey/2gis.loc.git
+2. cd app root dir
+3. php app/console server:start
+4. open http://localhost:8000
+
 Установка на lampp OS xubuntu 14.04
+
+Если вас устраивает СУБД SQLITE - см. запуск на встроеном в symfony 2 php сервере.
+
+Для развертывания с использованием другой реляционной СУБД.
 
 1. git clone https://github.com/lamzin-andrey/2gis.loc.git
 2. Откройте app/config/parameters.yml и впишите корректные параметры соединения с БД MySql
+  2.1 Не забудьте закомментировать строку 
+   database_path: "%kernel.root_dir%/data/skyeng.db"
+  2.2 Откройте app/config/config.yml и закомментируйте строку path: "%database_path%"
+  
 3. Войдите в терминале в каталог приложения и запустите
 	 php app/console doctrine:database:create
      php app/console doctrine:schema:update --force
