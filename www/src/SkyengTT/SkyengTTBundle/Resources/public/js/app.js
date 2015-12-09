@@ -27,6 +27,7 @@ var LangMiniTestApp = angular.module('LangMiniTestApp', ['ngRoute', 'LangMiniTes
 			}
 			$scope.score = $rootScope.questionData.score ? $rootScope.questionData.score : 0;
 			$rootScope.pagePreloader = false;
+			$rootScope.questionData = false;
 		}
 	)
 	
@@ -38,6 +39,7 @@ var LangMiniTestApp = angular.module('LangMiniTestApp', ['ngRoute', 'LangMiniTes
 			}
 			$scope.score = $rootScope.questionData.score ? $rootScope.questionData.score : 0;
 			$rootScope.pagePreloader = false;
+			$rootScope.questionData = false;
 		}
 	)
 	
@@ -92,7 +94,7 @@ var LangMiniTestApp = angular.module('LangMiniTestApp', ['ngRoute', 'LangMiniTes
 		$scope.question   = 'Вопрос';
 		$scope.questionId = 0;
 		
-		if (!$scope.questionData){
+		if (!$rootScope.questionData){
 			/** 
 			 * @desc Get attribute value from NamedNodeMap
 			 * @param {NamedNodeMap} attrs
