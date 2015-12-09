@@ -2,11 +2,32 @@
 <html lang="ru-RU">
 <head>
 	<meta charset="utf-8" >
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/skyengttskyengtt/css/app.css') }}">
+	
+	<script type="text/javascript" src="{{ asset('bundles/skyengttskyengtt/js/jquery-1.11.0.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/skyengttskyengtt/js/angular/angular.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/skyengttskyengtt/js/angular/angular-route.min.js') }}"></script>
+	
+	<script type="text/javascript" src="{{ asset('bundles/skyengttskyengtt/js/app.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/skyengttskyengtt/js/directives.js') }}"></script>
 	<title>Мини-тест на знание английского языка</title>
 </head>
 <body ng-app="LangMiniTestApp">
-	<div class="test-area" ng-controller="appController">
+	<div class="test-area" ng-controller="AppController">
 		<div ng-view></div>
+	</div>
+	<div loader-screen class="hide">
+		<div class="ta-center loader-place">
+			<img src="{{ asset('bundles/skyengttskyengtt/img/bigloader.gif') }}">
+		</div>
+	</div>
+	<div error-message class="hide emess" ng-controller="ErrorTooltipController">
+		<div class="emess-top-border ">
+			<div class="emess-title left">Ошибка</div>
+			<div class="emess-closebtn right" ng-click="closeErrorDlg()">X</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="emess-body">[[ appErrorText ]]</div>
 	</div>
 </body>
 </html>

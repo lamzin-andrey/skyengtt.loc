@@ -83,7 +83,16 @@ class AnswerController extends Controller
 				$statModel->setQuantity( $statModel->getQuantity() + 1);
 				$em->persist($statModel);
 				$em->flush();
-				return Tool::json( array('success' => false) );
+				$data = array('success' => false);
+				$session = $request->getSession();
+				$wrong = $session->get(Tool::WRONG_ANSWER_COUNT, 0);
+				$wrong++;
+				if ($wrong >= Tool::WRONG_ANSWER_LIMIT) {
+					$data['gameover'] = true;
+					$wrong = 0;
+				}
+				$session->set(Tool::WRONG_ANSWER_COUNT, $wrong);
+				return Tool::json($data);
 			}
 		}
         return Tool::json404( array('info' => 'Question #' . $questionId . ' not found!') );

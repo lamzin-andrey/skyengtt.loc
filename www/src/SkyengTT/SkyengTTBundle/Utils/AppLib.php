@@ -17,6 +17,12 @@ class AppLib
 	const QUESTIONS_LIMIT = 10;
 	/** в этом ключе сессии храним ответы, которые уже показывались пользователю */
 	const LAST_QUESTIONS = 'LAST_QUESTIONS';
+	/** в этом ключе сессии храним количество неверных ответов */
+	const WRONG_ANSWER_COUNT = 'WRONG_ANSWER_COUNT';
+	/** максимально допустимое количество неверных ответов */
+	const WRONG_ANSWER_LIMIT = 3;
+	
+	
     /**
      * Обертка для быстрого добавлению к JSON ответу 404 статуса
      */
