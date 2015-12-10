@@ -21,7 +21,9 @@ use Symfony\Component\DomCrawler\Form AS CForm;
 class AnswerController extends WebTestCase
 {
 	
-	
+	/**
+	 * Проверка статистики учета неверных ответов
+	*/
 	public function testErrorStat()
 	{
 		$lim = 10; //у нас будет вот столько неправильных ответов 
