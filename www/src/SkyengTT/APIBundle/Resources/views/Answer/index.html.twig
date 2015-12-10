@@ -71,6 +71,25 @@
 		</p>
 		<input type="submit" id="snd" value="Send">
 	</form>
+	
+	<form action="/answer/add/-1" method="POST">
+		<p>
+			<label for="answer_id"></label>
+			<input type="text" name="answer_id" id="answer_id" value="5">
+			<input type="text" name="quest_id" id="quest_id" value="5">
+		</p>
+		<input type="submit" id="snd" value="SendNoExistsQuestion">
+	</form>
+	
+	<!--#QID-->
+	<form action="/answer/add/65" method="POST">
+		<p>
+			<label for="answer_id"></label>
+			<input type="text" name="answer_id" id="answer_id" value="5">
+			<input type="text" name="quest_id" id="quest_id" value="5">
+		</p>
+		<input type="submit" id="snd" value="SendAnyQuestion">
+	</form>
 </body>
 
 </html>
