@@ -1,13 +1,10 @@
 var LangMiniTestApp = angular.module('LangMiniTestApp', ['ngRoute', 'LangMiniTestDirectives'])
 	.value('UNIVERSAL_ERROR', 'Возникла ошибка, попробуйте еще раз или обновите страницу.')
-	.config(function($routeProvider, $interpolateProvider) {
+	.config(function ($routeProvider, $interpolateProvider) {
 		$routeProvider.when('/', {templateUrl: '/hello', controller:'HelloScreenController'})
 		  .when('/game', {templateUrl: '/game', controller:'GameController'})
 		  .when('/win', {templateUrl: '/win', controller:'WinController'})
-		  .when('/gameover', {templateUrl: '/win', controller:'GOController'})
-		  /*.otherwise({
-			redirectTo: '/'
-		  })*/;
+		  .when('/gameover', {templateUrl: '/gameover', controller:'GOController'});
 	  
 		$interpolateProvider.startSymbol('[[');
 		$interpolateProvider.endSymbol(']]');
@@ -15,19 +12,21 @@ var LangMiniTestApp = angular.module('LangMiniTestApp', ['ngRoute', 'LangMiniTes
   
 	.controller('AppController', 
 		function ($scope, $rootScope) {
-			
+			$rootScope.questionData = $rootScope.questionData ? $rootScope.questionData : {};
+			$rootScope.questionData.score = 0;
+			$rootScope.username = $rootScope.username ? $rootScope.username : localStorage.username;
+			$rootScope.lives = localStorage.lives ? localStorage.lives : 3;
 		}
 	)
 	
 	.controller('WinController', 
 		function ($scope, $rootScope, $location) {
-			if (!$rootScope.questionData) {
+			if (!$rootScope.questionData.score) {
 				$location.path('/');
 				return;
 			}
 			$scope.score = $rootScope.questionData.score ? $rootScope.questionData.score : 0;
 			$rootScope.pagePreloader = false;
-			$rootScope.questionData = false;
 		}
 	)
 	
@@ -54,6 +53,10 @@ var LangMiniTestApp = angular.module('LangMiniTestApp', ['ngRoute', 'LangMiniTes
 	
 	.controller('HelloScreenController', 
 		function ($scope, $http, $rootScope, $location) {
+			$rootScope.questionData = $rootScope.questionData ? $rootScope.questionData : {};
+			$rootScope.questionData.score = 0;
+			localStorage.removeItem('lives');
+			$rootScope.pagePreloader = false;
 			$scope.sendUsername = function(evt) {
 				if (angular.isUndefined(evt.keyCode) || evt.keyCode == 13) {
 				var username = $('#username').val();
@@ -63,6 +66,8 @@ var LangMiniTestApp = angular.module('LangMiniTestApp', ['ngRoute', 'LangMiniTes
 						$http.post('/appuser/create', $.param( {username:username} ), config)
 						
 						.success(function(data) {
+							localStorage.username = $rootScope.username = username;
+							$rootScope.lives = 3;
 							$location.path('/game');
 						})
 						
@@ -94,7 +99,7 @@ var LangMiniTestApp = angular.module('LangMiniTestApp', ['ngRoute', 'LangMiniTes
 		$scope.question   = 'Вопрос';
 		$scope.questionId = 0;
 		
-		if (!$rootScope.questionData){
+		if (!$rootScope.questionData.score){
 			/** 
 			 * @desc Get attribute value from NamedNodeMap
 			 * @param {NamedNodeMap} attrs
@@ -138,6 +143,8 @@ var LangMiniTestApp = angular.module('LangMiniTestApp', ['ngRoute', 'LangMiniTes
 					}
 					$rootScope.pagePreloader = false;
 				} else if (!data.success) {
+					$rootScope.lives--;
+					localStorage.setItem('lives', $rootScope.lives);
 					if (data.gameover) {
 						$location.path('/gameover');
 					} else {
@@ -147,6 +154,7 @@ var LangMiniTestApp = angular.module('LangMiniTestApp', ['ngRoute', 'LangMiniTes
 						$rootScope.onlyFon = true;
 					}
 				} else {
+					$rootScope.questionData.score = data.score;
 					$location.path('/win');//TODO Win controller
 				}
 			}

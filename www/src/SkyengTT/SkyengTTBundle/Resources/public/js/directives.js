@@ -16,7 +16,7 @@ angular.module('LangMiniTestDirectives', [])
 				  element.css('position', 'fixed');
 				  element.css('top', '0px');
 				  element.css('left', '0px');
-				  element.css('opacity', '0.5');
+				  element.css('opacity', '0.2');
 				  element.css('background-color', 'blue');
 				  element.width($(window).width());
 				  element.height($(window).height());
@@ -55,7 +55,7 @@ angular.module('LangMiniTestDirectives', [])
 				  element.removeClass('hide');
 				  element.css('position', 'fixed');
 				  element.css('z-index', '5');
-				  element.css('top' , ($(window).height()  - element.height() )/ 2);
+				  element.css('top' , ($(window).height()  - element.height() )/ 3);
 				  element.css('left' , ($(window).width()  - element.width() )/ 2);
 			  } else {
 				  element.addClass('hide');

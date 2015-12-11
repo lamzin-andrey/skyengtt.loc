@@ -1,7 +1,12 @@
+html {
+  height:100%;
+ }
 body {
   background-color:black;
   padding:0px;
   margin:0px;
+  height:100%;
+  font-family:Geneva,Verdana,arial;
 }
 .left {
   float:left;
@@ -15,35 +20,73 @@ body {
 .hide {
   display:none;
 }
+/** TODO */
+ul.inline {padding:0; margin:0;}
+ul.inline li, .iblock {display:inline-block;}
+ul.inline-block {padding:0; margin:0;}
+ul.inline-block li{display:inline-block}
+ul.nomark li, .toolbar ul li {list-style-type:none;}
+/** end TODO */
+/** Общие для всех экранов */
 .test-area {
   background-color:white;
+  background-image: url('/bundles/skyengttskyengtt/img/sea.jpg');
+  background-size:cover;
   margin:0 auto;
   padding:0px;
-  max-width:600px;
+  max-width:2000px; 
+  height:100%;
 }
 .test-area p {
   padding:0px;
   margin:0px;
 }
-.emess {
-  background-color:#F096B9;
-  border: white solid 1px;
-  border-radius: 4px 4px 0px 0px;
-  width:25%;
-  font-weight: bold;
+.test-title, .question-block, .gameover-message, .win-message {
+  font-size:300%;
+  text-align:center;
+  padding: 12px 0px;
+  margin:0% 10% 0 10%;
+  height: auto;
+  border: 5px solid rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
 }
-.emess-top-border {
-  border-bottom: white solid 1px;
-  padding:4px;
+.hs-fc, .gs-qc, .go-c, .win-c{
+  color:brown;
 }
-.emess-closebtn {
-  cursor:pointer;
+.try-again {
+  font-size: 150%;
 }
-.emess-body {
-  min-height: 50px;
-  padding: 10px;
+/**toolbar*/
+.toolbar {
+	background:#5B3131;
+	margin-bottom:0px;
+	box-shadow:0px 0px 10px 0px #c0c0c0;
+	width:100%;
+	min-height: 38px;
+}
+.toolbar ul{margin: 7px 6px 0px 6px;}
+.toolbar ul li a, .toolbar ul li span {
+    color: white;
+    display: inline-block;
+    line-height: 24px;
+    padding: 0 10px 0 6px;
+    text-decoration: none;
+}
+.toolbar ul li a img {
+    border:none;
+}
+.toolbar ul li span i {
+    font-style:normal;
+}
+.toolbar img {
+  width:24px;
+  height:24px;
+  vertical-align:top;
 }
 /*hello screen*/
+.v-spacer {
+  height:100px;
+}
 .ta-center {
   text-align:center;
   vertical-align:middle;
@@ -58,15 +101,17 @@ body {
 .loader-place img{
   position:absolute;
 }
-
-/** game screen*/
-.question-block {
-  border: solid 4px black;
-  border-radius: 4px;
-  font-size: 2em;
-  margin: 0px auto 100px;
-  width:50%;
+.hs-enter-name {
+  font-size:150%;
 }
+.hs-input-block p{
+  margin: 8px;
+}
+.hs-input-block input{
+  width: 40%;
+  font-size: 200%;
+}
+/** game screen*/
 .answer {
   display: inline-block;
   margin:6px;
@@ -76,4 +121,35 @@ body {
   padding:4px;
   cursor: pointer;
   min-width: 214px;
+  background:linear-gradient(to bottom, #ffffff, #ffffff,  #C3D1D7);
+}
+/** message */
+.emess {
+  background-color:rgba(240, 150, 185, 0.92);
+  border: white solid 5px;
+  border-radius: 12px 12px 0 0;
+  width:25%;
+  font-weight: bold;
+}
+.emess-title {
+  padding:0px 7px;
+}
+.emess-top-border {
+  border-bottom: white solid 1px;
+  padding:4px;
+}
+.emess-closebtn {
+  background-color: #000;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  height: 25px;
+  line-height: 23px;
+  text-align: center;
+  vertical-align: middle;
+  width: 25px;
+}
+.emess-body {
+  min-height: 50px;
+  padding: 10px;
 }
